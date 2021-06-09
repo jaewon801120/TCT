@@ -2,6 +2,8 @@ package exercise;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,18 +13,29 @@ public class FileExample {
 	// �����̵�,�̸��ٲٱ�
 	// ���Ͻð� ��������
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
+		Path path = Paths.get("D:\\Download\\jar\\123.txt");
+        System.out.println("디렉토리 여부 : " + Files.isDirectory(path));
+        System.out.println("파일 여부 : " + Files.isRegularFile(path));
+        System.out.println("마지막 수정 시간 : " + Files.getLastModifiedTime(path));
+        System.out.println("파일 크기 : " + Files.size(path));
+        System.out.println("소유자 : " + Files.getOwner(path));
+        System.out.println("숨김 파일 여부 : " + Files.isHidden(path));
+        System.out.println("읽기 가능 여부 : " + Files.isReadable(path));
+        System.out.println("쓰기 가능 여부 : " + Files.isWritable(path));
+        System.out.println("실행 여부 : " + Files.isExecutable(path));
+
 		String[] s = new String[] {};
 
 		System.out.println(s.length);
 
-		File[] files = FileExample.listDir(new File("."));
+		File[] files = FileExample.listDir(new File("D:\\Download\\jar\\"));
 		for (File file : files) {
 			System.out.println(file.getPath());
 		}
 
-		File from = new File("./TestFile.txt");
+		File from = new File("D:\\Download\\jar\\123.txt");
 		try {
 			PrintWriter pw = new PrintWriter(from);
 			pw.println("TestFile1234");
@@ -32,7 +45,7 @@ public class FileExample {
 			e.printStackTrace();
 		}
 
-		File to = new File("./bin/TestFile2.txt");
+		File to = new File("D:\\Download\\jar\\321.txt");
 		if (from.exists())
 			from.renameTo(to);
 
@@ -45,9 +58,9 @@ public class FileExample {
 			e.printStackTrace();
 		}
 
-		copyFile(from, new File("./bin/TestFile3.txt"));
+		copyFile(from, new File("D:\\Download\\jar\\456.txt"));
 
-		for (File file : FileExample.listDir(new File("./bin"))) {
+		for (File file : FileExample.listDir(new File("D:\\Download\\jar\\"))) {
 			System.out.println(file.getPath());
 		}
 
