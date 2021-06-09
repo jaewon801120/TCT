@@ -8,7 +8,15 @@ public class FileIO {
 		
 		try
 		{
-			readAll("");
+			write("D:/Download/jar/654.txt", "TestFile1234\r\nTestFile5678\r\nTestFile91011");
+			
+			String fileData = readAll("D:/Download/jar/654.txt");
+			System.out.println(fileData);
+			
+			readLine("D:/Download/jar/654.txt");
+			
+			byte[] byteData = readBytes("D:/Download/jar/654.txt", 0, fileData.length());
+			System.out.println(new String(byteData));
 		}
 		catch (FileNotFoundException e)
 		{
@@ -21,7 +29,6 @@ public class FileIO {
 
 	}
 
-	// �ؽ�Ʈ ���� �� ���� ��� �б� (Utility Ÿ��)
 	public static String readAll(String filePath) throws IOException {
 		 
 	    StringBuilder  stringBuilder;
@@ -32,8 +39,9 @@ public class FileIO {
 	        fileReader     = new FileReader(filePath);
 	        bufferedReader = new BufferedReader(fileReader);
 	        String line;
-	        while ((line = bufferedReader.readLine()) != null)
+	        while ((line = bufferedReader.readLine()) != null) {
 	            stringBuilder.append(line).append('\n');
+	        }
 	         
 	    } finally {
 	        if (bufferedReader != null) try { bufferedReader.close(); } catch (Exception ex) { /* Do Nothing */ }
@@ -43,7 +51,6 @@ public class FileIO {
 	    return stringBuilder.toString();
 	}
 	
-	// �ؽ�Ʈ ���� ���� ������ �о ó��
 	public static void readLine(String filePath) throws IOException {
 		 
 		FileReader     fileReader     = null;
@@ -52,8 +59,10 @@ public class FileIO {
 		    fileReader     = new FileReader(filePath);
 		    bufferedReader = new BufferedReader(fileReader);
 		    String line;
+		    int nLine = 0;
 		    while ((line = bufferedReader.readLine()) != null) {
-		        //[[line �� ó��]]
+		    	nLine++;
+		    	System.out.println("line " + nLine + " : " + line);
 		    }
 		     
 		} finally {
@@ -62,7 +71,6 @@ public class FileIO {
 		}
 	}
 	
-	// �ؽ�Ʈ ���� ���� (Utility Ÿ��)
 	public static void write(String filePath, String content) throws IOException {
 		 
 	    FileWriter     fileWriter     = null;
@@ -78,7 +86,6 @@ public class FileIO {
 	    }
 	}
 	
-	// ���� �� ���� ����Ʈ ó��
 	public static void folderRead() {
 
 		File folder = new File(".");
@@ -89,7 +96,6 @@ public class FileIO {
 		
 	}
 	
-	// ������ Ư�� ����Ʈ���� Ư�� ���̸�ŭ �б�
 	public static byte[] readBytes(String filePath, int offset, int length) throws IOException {
 		 
 	    RandomAccessFile randomFile = null;
